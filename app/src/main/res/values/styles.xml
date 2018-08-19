@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- I have no idea -->
+    <!-- Skal prøve å implementere "tre prikker meny" -->
+    <!-- <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"> -->
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Don't know what to put here-->
+        <item name="android:colorPrimary">@color/primaryColor</item>
+        <item name="android:colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="android:colorAccent">@color/primaryLightColor</item>
+    </style>
+
+    <style name="CustomActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/primaryColor</item>
+    </style>
+
+    <style name="CustomActionBar.Popup" parent="Base.Widget.AppCompat.PopupMenu">
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="overlapAnchor">false</item>
+        <!-- <item name="android:dropDownVerticalOffset">56dp</item> -->
+    </style>
+
+    <color name="colorBlack">#FF000000</color>
+</resources>

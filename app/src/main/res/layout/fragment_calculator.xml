@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trying without ScrollView, see if it gets any better-->
+<!--
+<ScrollView
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    -->
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_calculator_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalculatorFragment">
+    <!--android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchorGravity="start|top|end"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@id/total"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/left_vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/right_vertical"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <!-- 1000 -->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/tusenLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/femHundreLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/tusenImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="Tusen kroners seddel"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tusen"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/tusenLayout_Buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tusenImg"
+                    app:layout_constraintVertical_bias="1.0"
+                    >
+
+                    <Button
+                        android:id="@+id/minus1000"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="-"
+                        app:layout_constraintEnd_toStartOf="@+id/tusenAnt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/tusenAnt"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        android:nextFocusDown="@id/femHundreAnt"
+                        app:layout_constraintEnd_toStartOf="@+id/pluss1000"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/minus1000"/>
+
+                    <Button
+                        android:id="@+id/pluss1000"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="+"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/tusenAnt"/>
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <!-- 500 -->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/femHundreLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/toHundreLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tusenLayout">
+
+                <ImageView
+                    android:id="@+id/femHundreImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="Fem hundre kroners seddel"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/fem_hundre"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <!-- For knappene og tekstboksen -->
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/femHundreLayout_Buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/femHundreImg"
+                    app:layout_constraintVertical_bias="1.0"
+                    >
+
+                    <Button
+                        android:id="@+id/minus500"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="-"
+                        app:layout_constraintEnd_toStartOf="@+id/femHundreAnt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/femHundreAnt"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        android:nextFocusDown="@id/toHundreAnt"
+                        app:layout_constraintEnd_toStartOf="@+id/pluss500"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/minus500"/>
+
+                    <Button
+                        android:id="@+id/pluss500"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="+"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/femHundreAnt"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <!-- 200 -->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/toHundreLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/hundreLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/femHundreLayout">
+
+                <ImageView
+                    android:id="@+id/toHundreImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="To hundre kroners seddel"
+                    android:src="@drawable/to_hundre"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/toHundreLayout_Buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toHundreImg"
+                    app:layout_constraintVertical_bias="1.0"
+                    >
+
+                    <Button
+                        android:id="@+id/minus200"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="-"
+                        app:layout_constraintEnd_toStartOf="@+id/toHundreAnt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/toHundreAnt"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        android:nextFocusDown="@id/hundreAnt"
+                        app:layout_constraintEnd_toStartOf="@+id/pluss200"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/minus200"/>
+
+                    <Button
+                        android:id="@+id/pluss200"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="+"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/toHundreAnt"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <!-- 100 -->
+
+            <!-- 50 -->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/hundreLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/femtiLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toHundreLayout">
+
+                <ImageView
+                    android:id="@+id/hundreImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="Hundre kroners seddel"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/hundre"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/hundreLayout_Buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hundreImg"
+                    app:layout_constraintVertical_bias="1.0"
+                    >
+
+                    <Button
+                        android:id="@+id/minus100"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="-"
+                        app:layout_constraintEnd_toStartOf="@+id/hundreAnt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/hundreAnt"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        android:nextFocusDown="@id/femtiAnt"
+                        app:layout_constraintEnd_toStartOf="@+id/pluss100"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/minus100"/>
+
+                    <Button
+                        android:id="@+id/pluss100"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="+"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/hundreAnt"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/femtiLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hundreLayout">
+
+                <ImageView
+                    android:id="@+id/femtiImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="Femti kroners seddel"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/femti"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/femtiLayout_Buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/femtiImg"
+                    app:layout_constraintVertical_bias="1.0"
+                    >
+
+                    <Button
+                        android:id="@+id/minus50"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="-"
+                        app:layout_constraintEnd_toStartOf="@+id/femtiAnt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/femtiAnt"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        android:nextFocusDown="@id/tjueAnt"
+                        app:layout_constraintEnd_toStartOf="@+id/pluss50"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/minus50"/>
+
+                    <Button
+                        android:id="@+id/pluss50"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="+"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/femtiAnt"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/right_vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/left_vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- 20 -->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/tjueLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:baselineAligned="false"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/tiLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/tjueImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="Tjue kroners mynt"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tjue"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/tjueLayout_Buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tjueImg"
+                    >
+
+                    <Button
+                        android:id="@+id/minus20"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="-"
+                        app:layout_constraintEnd_toStartOf="@+id/tjueAnt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/tjueAnt"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        android:nextFocusDown="@id/tiAnt"
+                        app:layout_constraintEnd_toStartOf="@+id/pluss20"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/minus20"/>
+
+                    <Button
+                        android:id="@+id/pluss20"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="+"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/tjueAnt"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <!-- 10 -->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/tiLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="8dp"
+                android:baselineAligned="false"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/femLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tjueLayout">
+
+                <ImageView
+                    android:id="@+id/tiImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="Ti kroners mynt"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ti"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/tiLayout_Buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tiImg"
+                    >
+
+                    <Button
+                        android:id="@+id/minus10"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="-"
+                        app:layout_constraintEnd_toStartOf="@+id/tiAnt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/tiAnt"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        android:nextFocusDown="@id/femAnt"
+                        app:layout_constraintEnd_toStartOf="@+id/pluss10"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/minus10"/>
+
+                    <Button
+                        android:id="@+id/pluss10"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="+"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/tiAnt"/>
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <!-- 5 -->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/femLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="8dp"
+                android:baselineAligned="false"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/enLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tiLayout">
+
+                <ImageView
+                    android:id="@+id/femImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="Fem kroners mynt"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/fem"
+                    />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/femLayout_Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/femImg"
+                    >
+
+                    <Button
+                        android:id="@+id/minus5"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="-"
+                        app:layout_constraintEnd_toStartOf="@+id/femAnt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/femAnt"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        android:nextFocusDown="@id/enAnt"
+                        app:layout_constraintEnd_toStartOf="@+id/pluss5"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/minus5"/>
+
+                    <Button
+                        android:id="@+id/pluss5"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="+"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/femAnt"/>
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <!-- 1 -->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/enLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:baselineAligned="false"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/femLayout">
+
+                <ImageView
+                    android:id="@+id/enImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="En kroners mynt"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/en"
+                    />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/enLayout_Buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/enImg"
+                    >
+
+                    <Button
+                        android:id="@+id/minus1"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="-"
+                        app:layout_constraintEnd_toStartOf="@+id/enAnt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <EditText
+                        android:id="@+id/enAnt"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        app:layout_constraintEnd_toStartOf="@+id/pluss1"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/minus1"/>
+
+                    <Button
+                        android:id="@+id/pluss1"
+                        android:layout_width="@dimen/button_size"
+                        android:layout_height="@dimen/button_size"
+                        android:onClick="buttonClick"
+                        android:text="+"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toEndOf="@+id/enAnt"/>
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/totalt"
+        android:textColor="#000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="start|bottom"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_save_white_24dp"
+        app:fabSize="normal"
+        android:background="@color/primaryLightColor"/>
+
+</android.support.design.widget.CoordinatorLayout>
+
+    <!--
+    </ScrollView>
+    -->
+

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">KasseOpptelling_v2.1</string>
+    <string name="title_calculator">Kalkulator</string>
+    <string name="title_oppgjor">Oppgjør</string>
+    <string name="title_settings">Innstillinger</string>
+    <string name="totalt">Totalt:</string>
+    <string name="appDescription">Med denne appen kan du loggføre oppgjør på en enkel og oversiktlig måte.</string>
+    <string name="clear">Tilbakestill</string>
+
+</resources>
