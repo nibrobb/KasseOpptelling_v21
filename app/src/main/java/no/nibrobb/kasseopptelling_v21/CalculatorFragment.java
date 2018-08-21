@@ -151,9 +151,55 @@ public class CalculatorFragment extends Fragment {
 		updateTotal();
 		
 		initListeners();
-		
+
+
+		/***
+		 * Utilizing the new DRY etView listener initializer
+		 */
+		initETListeners(et1, i1);
+		initETListeners(et5, i5);
+		initETListeners(et10, i10);
+		initETListeners(et20, i20);
+		initETListeners(et50, i50);
+		initETListeners(et100, i100);
+		initETListeners(et200, i200);
+		initETListeners(et500, i500);
+		initETListeners(et1000, i1000);
+
+
 	}
-	
+
+	/***
+	 * Possible DRY-fix for initializing all the EditTextView-listeners
+	 * @param etView "The provided view, an EditText view, to which you intent on adding a onTextChangedListener"
+	 * @param etValue "The etView's associated integer-variable"
+	 * @return "Returns the new value of etValue"
+	 *
+	 * !!Also, refactor this method if it works!!
+	 */
+	private int initETListeners(@NonNull final EditText etView, int etValue){
+		/** Add listener to etView*/
+
+		etView.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (etView.getText().length() != 0)
+					// This not work, pls fix
+					etValue = Integer.parseInt(etView.getText().toString());
+				// Oppdater total-beløp
+				updateTotal();
+			}
+		});
+		return etValue;
+	}
+
+	/***
+	 * If above fix works, remove/refactor this piece of shit
+	 */
 	private void initListeners() {
 		/** Add listener to 1000*/
 		et1000.addTextChangedListener(new TextWatcher() {
@@ -323,7 +369,7 @@ public class CalculatorFragment extends Fragment {
 		twTotal.setText(getResources().getString(R.string.totalt) + sumAllValues() + " kr");
 	}
 	
-	public void buttonClick(View v) {
+	public void calculatorFragmentButtonClick(View v) {
 		switch (v.getId()) {
 			case R.id.minus1000:
 				if (i1000 > 0) {
